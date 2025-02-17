@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vjhero/pages/home_page.dart'; // Ensure this path is correct
+import 'package:vjhero/pages/signup_page.dart'; // Import the Sign Up page
 
 class LoginPage extends StatefulWidget {
   @override
@@ -25,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (_emailController.text.trim() == _validEmail &&
         _passwordController.text.trim() == _validPassword) {
-      // Navigate to home page after successful login
+      // Navigate to HomePage after successful login
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
@@ -105,7 +107,11 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: 16),
                     TextButton(
                       onPressed: () {
-                        // Navigate to registration page
+                        // Navigate to Sign Up page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignupScreen()),
+                        );
                       },
                       child: Text('Don\'t have an account? Sign up'),
                     ),
@@ -115,33 +121,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-// Placeholder for the home page after login
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('VJHero Home'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () {
-              // Navigate back to login page on logout
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-            },
-          ),
-        ],
-      ),
-      body: Center(
-        child: Text('Welcome to VJHero App!'),
       ),
     );
   }
