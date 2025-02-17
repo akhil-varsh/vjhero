@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -7,11 +6,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
   String _errorMessage = '';
+
+  // Static credentials (hardcoded for demonstration)
+  final String _validEmail = "user@example.com";
+  final String _validPassword = "password123";
 
   Future<void> _signInWithEmailAndPassword() async {
     setState(() {
@@ -19,36 +21,24 @@ class _LoginPageState extends State<LoginPage> {
       _errorMessage = '';
     });
 
-    try {
-      await _auth.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+    await Future.delayed(Duration(seconds: 1)); // Simulate a delay
 
+    if (_emailController.text.trim() == _validEmail &&
+        _passwordController.text.trim() == _validPassword) {
       // Navigate to home page after successful login
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
       );
-    } on FirebaseAuthException catch (e) {
+    } else {
       setState(() {
-        if (e.code == 'user-not-found') {
-          _errorMessage = 'No user found with this email.';
-        } else if (e.code == 'wrong-password') {
-          _errorMessage = 'Incorrect password.';
-        } else {
-          _errorMessage = 'Login failed: ${e.message}';
-        }
-      });
-    } catch (e) {
-      setState(() {
-        _errorMessage = 'An error occurred. Please try again.';
-      });
-    } finally {
-      setState(() {
-        _isLoading = false;
+        _errorMessage = 'Invalid email or password.';
       });
     }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -140,8 +130,8 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
+            onPressed: () {
+              // Navigate back to login page on logout
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => LoginPage()),
