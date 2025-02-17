@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "785820245137",
+    "project_id": "vjhero",
+    "storage_bucket": "vjhero.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785820245137:android:d9f8d1b1cb2d70b01eb330",
+        "android_client_info": {
+          "package_name": "com.example.vjhero"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATfQjj8wNHrdHXjsSTvdqlyW7z9h9zWWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
