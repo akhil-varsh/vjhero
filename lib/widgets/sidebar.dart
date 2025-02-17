@@ -40,19 +40,44 @@ class Sidebar extends StatelessWidget {
           Divider(),
           _buildDrawerItem(Icons.settings, 'Settings', context, '/settings'),
           _buildDrawerItem(Icons.help, 'Help & Feedback', context, '/help'),
+          Divider(),
+          _buildDrawerItem(Icons.exit_to_app, 'Logout', context, '/login', isLogout: true),
         ],
       ),
     );
   }
 
-  Widget _buildDrawerItem(IconData icon, String title, BuildContext context, String route) {
+  Widget _buildDrawerItem(
+      IconData icon,
+      String title,
+      BuildContext context,
+      String route,
+      {bool isLogout = false}
+      ) {
     return ListTile(
       leading: Icon(icon, color: Colors.blue),
       title: Text(title),
       onTap: () {
-        Navigator.pop(context); // Close drawer before navigation
-        Navigator.pushNamed(context, route);
+        if (isLogout) {
+          _logout(context);
+        } else {
+          Navigator.pop(context); // Close drawer before navigation
+          Navigator.pushNamed(context, route);
+        }
       },
     );
+  }
+
+  // Function to handle logout
+  void _logout(BuildContext context) {
+    // Clear any session or authentication data here (e.g., SharedPreferences, Firebase, etc.)
+    // For example, if you're using shared preferences:
+    // SharedPreferences.getInstance().then((prefs) {
+    //   prefs.remove('user_token');
+    // });
+
+    // Then, navigate the user to the login page
+    Navigator.pop(context); // Close the drawer
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false); // Clear stack and go to login screen
   }
 }

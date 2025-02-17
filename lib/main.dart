@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vjhero/pages/home_page.dart';
 import 'package:vjhero/pages/login_page.dart';
 
 
@@ -25,7 +26,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       home: LoginPage(),
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/home': (context) => HomePage(), // Your HomePage widget
+        // Add other routes like '/drive', '/settings', etc.
+      },
     );
+
   }
 }
 
